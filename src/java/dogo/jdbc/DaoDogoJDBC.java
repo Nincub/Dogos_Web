@@ -9,7 +9,9 @@ import JDBC.DBConnection;
 import com.dto.Dogo;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,17 +58,76 @@ public class DaoDogoJDBC implements IDaoDogo{
 
     @Override
     public int delete(Dogo dogo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try {
+            conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
+            stmt = (PreparedStatement) conn.prepareStatement(SQL_DELETE);
+            int index = 1;
+            stmt.setInt(index, dogo.getIdDogo());
+            System.out.println("Executing Query: " + SQL_DELETE);
+            rows = stmt.executeUpdate();
+            System.out.println("Afected rows: " + rows);
+        } finally {
+            DBConnection.close(stmt);
+            if (conn == null) {
+                DBConnection.close(conn);
+            }
+        }
+        return rows;
     }
 
     @Override
     public int update(Dogo dogo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try {
+            conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
+            stmt = (PreparedStatement) conn.prepareStatement(SQL_UPDATE);
+            int index = 1;
+            stmt.setInt(index++, dogo.getIdSalchicha());
+            stmt.setInt(index++, dogo.getIdPan());
+            stmt.setFloat(index++, dogo.getPrecio());
+            stmt.setInt(index, dogo.getIdDogo());
+            System.out.println("Executing Query: " + SQL_UPDATE);
+            stmt.executeUpdate();
+            System.out.println("Afected rows: " + rows);
+        } finally {
+            DBConnection.close(stmt);
+            if (conn == null) {
+                DBConnection.close(conn);
+            }
+        }
+        return rows;
     }
 
     @Override
     public List<Dogo> select() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Dogo> dogos = new ArrayList<>();
+        try {
+            conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
+            stmt = (PreparedStatement) conn.prepareStatement(SQL_SELECT);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                int idDogo = rs.getInt(1);
+                int idSalchicha = rs.getInt(2);
+                int idPan = rs.getInt(3);
+                float precio = rs.getFloat(4);
+                dogos.add(new Dogo(idDogo, idSalchicha, idPan, precio));
+            }
+        } finally {
+            DBConnection.close(rs);
+            DBConnection.close(stmt);
+            if (conn == null) {
+                DBConnection.close(conn);
+            }
+        }
+        return dogos;
     }
     
     
