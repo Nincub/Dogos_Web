@@ -113,8 +113,8 @@ public class DaoPanJDBC implements IDaoPan{
             rs = stmt.executeQuery();
             while(rs.next()) {
                 int idPan = rs.getInt(1);
-                float precio = rs.getFloat(2);
-                String nombre = rs.getString(3);
+                String nombre = rs.getString(2);
+                float precio = rs.getFloat(3);
                 panes.add(new Pan(idPan, precio, nombre));
             }
         } finally {

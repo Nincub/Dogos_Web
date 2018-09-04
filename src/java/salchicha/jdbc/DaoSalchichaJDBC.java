@@ -23,7 +23,7 @@ public class DaoSalchichaJDBC implements IDaoSalchicha {
     private final String SQL_INSERT = "INSERT INTO salchicha(precio, nombre) VALUES(?,?)";
     private final String SQL_UPDATE = "UPDATE salchicha SET precio=?, nombre=? WHERE idsalchicha=?";
     private final String SQL_DELETE = "DELETE FROM salchicha WHERE idsalchicha = ?";
-    private final String SQL_SELECT = "SELECT idsalchicha, nombre, precio cohort FROM salchicha";
+    private final String SQL_SELECT = "SELECT idsalchicha, nombre, precio FROM salchicha";
 
     public DaoSalchichaJDBC() {
     }
@@ -113,8 +113,8 @@ public class DaoSalchichaJDBC implements IDaoSalchicha {
             rs = stmt.executeQuery();
             while(rs.next()) {
                 int idSalchicha = rs.getInt(1);
-                float precio = rs.getFloat(2);
-                String nombre = rs.getString(3);
+                String nombre = rs.getString(2);
+                float precio = rs.getFloat(3);
                 salchichas.add(new Salchicha(idSalchicha, precio, nombre));
             }
         } finally {

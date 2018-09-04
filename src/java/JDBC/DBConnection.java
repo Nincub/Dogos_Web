@@ -20,7 +20,7 @@ public class DBConnection {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     //Especificamos la base de datos. user SSL = false es para evitar el warning;
     //que nos indica que no estamos usando el protocolo seguro SSL (Secure Socket Layer)
-    private static final String JDBC_URL = "jdbc:mysql://localhost/generation?userSSL=false";
+    private static final String JDBC_URL = "jdbc:mysql://localhost/dogos?userSSL=false";
     private static final String JDBC_USER = "root"; //usuario de la DB
     private static final String JDBC_PASS = "admin"; //contraseña de la DB
     private static Driver driver = null;

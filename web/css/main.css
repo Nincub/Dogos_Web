@@ -11,4 +11,24 @@ and open the template in the editor.
     margin-top: 10px;
 }
 
+.img.add {
+    height: 30px;
+}
+
+.btn.add {
+    margin-top: 10px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-color: black;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.btn.add:hover {
+    background: gray;
+}
+
+
+
 
