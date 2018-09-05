@@ -51,9 +51,9 @@ public class Salchichas extends HttpServlet {
             List salchichas = salchichaJDBC.select();
             jSONArray = new JSONArray(salchichas);
             jsono.put("Salchichas", jSONArray);
-            System.out.println(jsono);
+            //System.out.println(jsono);
             PrintWriter pw = response.getWriter();
-            pw.print(jsono.toString());
+            pw.print(jsono);
             pw.flush();
             
         } catch (SQLException ex) {
