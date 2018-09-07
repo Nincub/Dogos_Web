@@ -52,13 +52,13 @@ $("#Select-Panes").on("change", function () {
     generarTotal();
 });
 
-$("#precio-mas").on("change", function () {
+$("#precio-mas").keyup( function () {
     generarTotal();
 });
 
 function generarTotal() {
     var net = parseFloat($("#precio-neto")[0].value);
-    var add = parseFloat($("#precio-mas")[0].value);
+    var add = parseFloat($("#precio-mas")[0].value) !== /[0-9]*[.]?/ ? 0 : parseFloat($("#precio-mas")[0].value);
     var total = net + add;
     $("#total-dogo")[0].value = total;
     $("#Warning").addClass("hidden");
